@@ -1,0 +1,357 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		F4B135C01B15F8EE00BE529C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4B135B21B15F7C900BE529C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F4B135B61B15F7C900BE529C;
+			remoteInfo = RayTracer1;
+		};
+		F4B135D51B15FB5700BE529C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4B135B21B15F7C900BE529C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F4B135BC1B15F8CA00BE529C;
+			remoteInfo = Dummy;
+		};
+		F4B135DB1B15FBD400BE529C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4B135B21B15F7C900BE529C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F4B135B61B15F7C900BE529C;
+			remoteInfo = RayTracer1;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		F4B135CB1B15F92D00BE529C /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		F4B135CC1B15F9EC00BE529C /* Color.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Color.cpp; sourceTree = "<group>"; };
+		F4B135CD1B15F9EC00BE529C /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
+		F4B135CE1B15F9EC00BE529C /* Object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Object.cpp; sourceTree = "<group>"; };
+		F4B135CF1B15F9EC00BE529C /* Object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Object.h; sourceTree = "<group>"; };
+		F4B135D01B15F9EC00BE529C /* RayTracer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RayTracer.cpp; sourceTree = "<group>"; };
+		F4B135D11B15F9EC00BE529C /* Sphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sphere.cpp; sourceTree = "<group>"; };
+		F4B135D21B15F9EC00BE529C /* Sphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sphere.h; sourceTree = "<group>"; };
+		F4B135D31B15F9EC00BE529C /* Vector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vector.cpp; sourceTree = "<group>"; };
+		F4B135D41B15F9EC00BE529C /* Vector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector.h; sourceTree = "<group>"; };
+		F4B135DD1B16E99E00BE529C /* Plane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Plane.cpp; sourceTree = "<group>"; };
+		F4B135DE1B16E99E00BE529C /* Plane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plane.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		F4B135B11B15F7C900BE529C = {
+			isa = PBXGroup;
+			children = (
+				F4B135CC1B15F9EC00BE529C /* Color.cpp */,
+				F4B135CD1B15F9EC00BE529C /* Color.h */,
+				F4B135CE1B15F9EC00BE529C /* Object.cpp */,
+				F4B135CF1B15F9EC00BE529C /* Object.h */,
+				F4B135DD1B16E99E00BE529C /* Plane.cpp */,
+				F4B135DE1B16E99E00BE529C /* Plane.h */,
+				F4B135D01B15F9EC00BE529C /* RayTracer.cpp */,
+				F4B135D11B15F9EC00BE529C /* Sphere.cpp */,
+				F4B135D21B15F9EC00BE529C /* Sphere.h */,
+				F4B135D31B15F9EC00BE529C /* Vector.cpp */,
+				F4B135D41B15F9EC00BE529C /* Vector.h */,
+				F4B135CB1B15F92D00BE529C /* Makefile */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		F4B135B61B15F7C900BE529C /* RayTracer1 */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = F4B135B91B15F7C900BE529C /* Build configuration list for PBXLegacyTarget "RayTracer1" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			dependencies = (
+				F4B135D61B15FB5700BE529C /* PBXTargetDependency */,
+			);
+			name = RayTracer1;
+			passBuildSettingsInEnvironment = 1;
+			productName = RayTracer1;
+		};
+		F4B135BC1B15F8CA00BE529C /* Dummy */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = F4B135BD1B15F8CA00BE529C /* Build configuration list for PBXLegacyTarget "Dummy" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			dependencies = (
+				F4B135C11B15F8EE00BE529C /* PBXTargetDependency */,
+			);
+			name = Dummy;
+			passBuildSettingsInEnvironment = 1;
+			productName = Dummy;
+		};
+		F4B135D71B15FB9100BE529C /* Run */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = F4B135D81B15FB9100BE529C /* Build configuration list for PBXLegacyTarget "Run" */;
+			buildPhases = (
+			);
+			buildToolPath = ./RayTracer;
+			buildWorkingDirectory = "";
+			dependencies = (
+				F4B135DC1B15FBD400BE529C /* PBXTargetDependency */,
+			);
+			name = Run;
+			passBuildSettingsInEnvironment = 1;
+			productName = Run;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		F4B135B21B15F7C900BE529C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = "Simon Crequer";
+				TargetAttributes = {
+					F4B135B61B15F7C900BE529C = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
+					F4B135BC1B15F8CA00BE529C = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
+					F4B135D71B15FB9100BE529C = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
+				};
+			};
+			buildConfigurationList = F4B135B51B15F7C900BE529C /* Build configuration list for PBXProject "RayTracer1" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F4B135B11B15F7C900BE529C;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F4B135B61B15F7C900BE529C /* RayTracer1 */,
+				F4B135BC1B15F8CA00BE529C /* Dummy */,
+				F4B135D71B15FB9100BE529C /* Run */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXTargetDependency section */
+		F4B135C11B15F8EE00BE529C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F4B135B61B15F7C900BE529C /* RayTracer1 */;
+			targetProxy = F4B135C01B15F8EE00BE529C /* PBXContainerItemProxy */;
+		};
+		F4B135D61B15FB5700BE529C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F4B135BC1B15F8CA00BE529C /* Dummy */;
+			targetProxy = F4B135D51B15FB5700BE529C /* PBXContainerItemProxy */;
+		};
+		F4B135DC1B15FBD400BE529C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F4B135B61B15F7C900BE529C /* RayTracer1 */;
+			targetProxy = F4B135DB1B15FBD400BE529C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		F4B135B71B15F7C900BE529C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		F4B135B81B15F7C900BE529C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		F4B135BA1B15F7C900BE529C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUGGING_SYMBOLS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F4B135BB1B15F7C900BE529C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		F4B135BE1B15F8CA00BE529C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUGGING_SYMBOLS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F4B135BF1B15F8CA00BE529C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		F4B135D91B15FB9100BE529C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUGGING_SYMBOLS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F4B135DA1B15FB9100BE529C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F4B135B51B15F7C900BE529C /* Build configuration list for PBXProject "RayTracer1" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F4B135B71B15F7C900BE529C /* Debug */,
+				F4B135B81B15F7C900BE529C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F4B135B91B15F7C900BE529C /* Build configuration list for PBXLegacyTarget "RayTracer1" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F4B135BA1B15F7C900BE529C /* Debug */,
+				F4B135BB1B15F7C900BE529C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		F4B135BD1B15F8CA00BE529C /* Build configuration list for PBXLegacyTarget "Dummy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F4B135BE1B15F8CA00BE529C /* Debug */,
+				F4B135BF1B15F8CA00BE529C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		F4B135D81B15FB9100BE529C /* Build configuration list for PBXLegacyTarget "Run" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F4B135D91B15FB9100BE529C /* Debug */,
+				F4B135DA1B15FB9100BE529C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F4B135B21B15F7C900BE529C /* Project object */;
+}
