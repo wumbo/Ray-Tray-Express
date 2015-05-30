@@ -118,16 +118,17 @@ Color trace(Vector pos, Vector dir, int step)
         
         // Refractions
         if ((q.index == 0) && step < MAX_STEPS) {
-            float refractionIndex = 1.1;
+            float refractionIndex = 1.5;
             /*if (step % 2 == 0) {
-                refractionIndex = 1 / refractionIndex;
-            }*/
+             refractionIndex = 1 / refractionIndex;
+             }*/
+
             float cosTheta = sqrt(1 - pow(refractionIndex, 2) * (1 - pow(dir.dot(n), 2)));
             Vector refractionVector = (dir * refractionIndex) - n * (refractionIndex *
-                                       dir.dot(n) + cosTheta);
+                                                                     dir.dot(n) + cosTheta);
             
             Color refractionCol = trace(q.point, refractionVector, step+1);
-            colorSum.combineColor(refractionCol, 0.7);
+            colorSum.combineColor(refractionCol, 1);
         }
         
         return colorSum;
@@ -188,7 +189,7 @@ void initialize()
     glLoadIdentity();
     glClearColor(backgroundCol.r, backgroundCol.g, backgroundCol.b, 1);
     
-    Sphere *sphere1 = new Sphere(Vector(0, 0, -50), 3.0, Color(0.8, 0.6, 0.7));
+    Sphere *sphere1 = new Sphere(Vector(3, 0, -50), 3.0, Color::GRAY);
     Sphere *sphere2 = new Sphere(Vector(10, 8, -55), 3.0, Color::RED);
     Sphere *sphere3 = new Sphere(Vector(-2, 1, -80), 10.0, Color::GREEN);
     Sphere *sphere4 = new Sphere(Vector(-10, 8, -60), 4.0, Color::PINK);
