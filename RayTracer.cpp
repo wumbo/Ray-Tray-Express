@@ -11,6 +11,7 @@
 #include "Color.h"
 #include "Object.h"
 #include "Plane.h"
+#include "Cylinder.h"
 #include <GL/glut.h>
 using namespace std;
 
@@ -18,7 +19,7 @@ const float WIDTH = 26.0;
 const float HEIGHT = 20.0;
 const float EDIST = 40.0;
 const int PPU = 30;     //Total 600x600 pixels
-const int MAX_STEPS = 5;
+const int MAX_STEPS = 10;
 const float XMIN = -WIDTH * 0.5;
 const float XMAX =  WIDTH * 0.5;
 const float YMIN = -HEIGHT * 0.5;
@@ -110,7 +111,7 @@ Color trace(Vector pos, Vector dir, int step)
         // Reflections
         if ((q.index == 2) && step < MAX_STEPS) {
             Vector reflectionVector = ((n*2)* (n.dot(v))) - v;
-            float reflCoeff = 0.8;
+            float reflCoeff = 1;
             
             Color reflectionCol = trace(q.point, reflectionVector, step+1);
             colorSum.combineColor(reflectionCol, reflCoeff);
@@ -120,8 +121,12 @@ Color trace(Vector pos, Vector dir, int step)
         if ((q.index == 0) && step < MAX_STEPS) {
             float refractionIndex = 1.5;
             /*if (step % 2 == 0) {
-             refractionIndex = 1 / refractionIndex;
-             }*/
+                refractionIndex = 1 / refractionIndex;
+            }*/
+            
+            if (step == 2) {
+                return Color::PINK;
+            }
 
             float cosTheta = sqrt(1 - pow(refractionIndex, 2) * (1 - pow(dir.dot(n), 2)));
             Vector refractionVector = (dir * refractionIndex) - n * (refractionIndex *
@@ -189,10 +194,12 @@ void initialize()
     glLoadIdentity();
     glClearColor(backgroundCol.r, backgroundCol.g, backgroundCol.b, 1);
     
-    Sphere *sphere1 = new Sphere(Vector(3, 0, -50), 3.0, Color::GRAY);
+    Sphere *sphere1 = new Sphere(Vector(3, 0, -50), 3.0, Color::WHITE);
     Sphere *sphere2 = new Sphere(Vector(10, 8, -55), 3.0, Color::RED);
-    Sphere *sphere3 = new Sphere(Vector(-2, 1, -80), 10.0, Color::GREEN);
+    Sphere *sphere3 = new Sphere(Vector(-2, 1, -80), 10.0, Color::PINK);
     Sphere *sphere4 = new Sphere(Vector(-10, 8, -60), 4.0, Color::PINK);
+    
+    Cylinder *cylinder1 = new Cylinder(Vector(0, -10, -45), 5.0, 3.0, Color::BLUE);
     
     Plane *plane = new Plane(Vector(-10, -10, -40),
                              Vector(10, -10, -40),
@@ -204,6 +211,7 @@ void initialize()
     sceneObjects.push_back(sphere2);
     sceneObjects.push_back(sphere3);
     sceneObjects.push_back(sphere4);
+    sceneObjects.push_back(cylinder1);
     sceneObjects.push_back(plane);
 }
 

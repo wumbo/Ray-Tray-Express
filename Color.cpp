@@ -26,9 +26,9 @@ void Color::combineColor(Color col)
 //Adds a scaled version of a colour to the current colour
 void Color::combineColor(Color col, float scaleFactor)
 {
-    r +=  scaleFactor * col.r;
-    g +=  scaleFactor * col.g;
-    b +=  scaleFactor * col.b;
+    r =  (r + scaleFactor * col.r)/2;
+    g =  (g + scaleFactor * col.g)/2;
+    b =  (b + scaleFactor * col.b)/2;
 }
 
 //Phong lighting equations:

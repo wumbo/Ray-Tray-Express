@@ -31,6 +31,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F41ADCF31B195DF2005655A8 /* Cylinder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cylinder.cpp; sourceTree = "<group>"; };
+		F41ADCF41B195DF2005655A8 /* Cylinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cylinder.h; sourceTree = "<group>"; };
 		F4B135CB1B15F92D00BE529C /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		F4B135CC1B15F9EC00BE529C /* Color.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Color.cpp; sourceTree = "<group>"; };
 		F4B135CD1B15F9EC00BE529C /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
@@ -51,6 +53,8 @@
 			children = (
 				F4B135CC1B15F9EC00BE529C /* Color.cpp */,
 				F4B135CD1B15F9EC00BE529C /* Color.h */,
+				F41ADCF31B195DF2005655A8 /* Cylinder.cpp */,
+				F41ADCF41B195DF2005655A8 /* Cylinder.h */,
 				F4B135CE1B15F9EC00BE529C /* Object.cpp */,
 				F4B135CF1B15F9EC00BE529C /* Object.h */,
 				F4B135DD1B16E99E00BE529C /* Plane.cpp */,
@@ -334,6 +338,7 @@
 				F4B135BB1B15F7C900BE529C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F4B135BD1B15F8CA00BE529C /* Build configuration list for PBXLegacyTarget "Dummy" */ = {
 			isa = XCConfigurationList;
@@ -342,6 +347,7 @@
 				F4B135BF1B15F8CA00BE529C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F4B135D81B15FB9100BE529C /* Build configuration list for PBXLegacyTarget "Run" */ = {
 			isa = XCConfigurationList;
@@ -350,6 +356,7 @@
 				F4B135DA1B15FB9100BE529C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
