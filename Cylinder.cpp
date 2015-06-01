@@ -74,9 +74,19 @@ float Cylinder::intersect(Vector pos, Vector dir)
  * Returns the unit normal vector at a given point.
  * Assumption: The input point p lies on the cylinder.
  */
-Vector Cylinder::normal(Vector p)
+Vector Cylinder::normal(Vector p, Vector src)
 {
-    Vector n = p - center;
+    Vector d = p - src;
+    float t = intersect(src, d);
+    d.normalise();
+    Vector p2 = src + d * t;
+    
+    Vector n;
+    if (p == p2) {
+        n = center - p;
+    } else {
+        n = p - center;
+    }
     n.y = 0;
     n.normalise();
     return n;

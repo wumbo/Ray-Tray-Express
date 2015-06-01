@@ -74,6 +74,13 @@ Vector Vector::operator-(const Vector rhs) const
     return Vector(x -rhs.x, y - rhs.y, z - rhs.z);
 }
 
+const bool Vector::operator==(const Vector rhs)
+{
+    return x == rhs.x &&
+           y == rhs.y &&
+           z == rhs.z;
+}
+
 // Compares two vectors
 const bool Vector::operator<(const Vector rhs) 
 {

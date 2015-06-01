@@ -13,7 +13,7 @@
 //Function to test if an input point is within the quad.
 bool Plane::isInside(Vector q)
 {
-	Vector n = normal(q);
+	Vector n = normal(q, Vector());
 	Vector ua = b-a,  ub = c-b, uc = d-c, ud = a-d;
 	Vector va = q-a,  vb = q-b, vc = q-c, vd = q-d;
 	
@@ -32,7 +32,7 @@ bool Plane::isInside(Vector q)
 //Function to compute the paramter t at the point of intersection.
 float Plane::intersect(Vector pos, Vector dir)
 {
-	Vector n = normal(pos);
+	Vector n = normal(pos, Vector());
 	Vector vdif = a-pos;
 	float vdotn = dir.dot(n);
 	if(fabs(vdotn) < 1.e-4) return -1;
@@ -45,7 +45,7 @@ float Plane::intersect(Vector pos, Vector dir)
 
 // Function to compute the unit normal vector
 // Remember to output a normalised vector!
-Vector Plane::normal(Vector pos)
+Vector Plane::normal(Vector pos, Vector src)
 {
     Vector bMinusA = b - a;
     Vector cMinusA = c - a;

@@ -38,7 +38,7 @@ public:
     
     float intersect(Vector pos, Vector dir);
     
-    Vector normal(Vector p);
+    Vector normal(Vector p, Vector src);
     
 };
 

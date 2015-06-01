@@ -82,7 +82,7 @@ Color trace(Vector pos, Vector dir, int step)
     if(q.index == -1) return backgroundCol;        //no intersection
 
     Color col = sceneObjects[q.index]->getColor(); //Object's colour
-    Vector n = sceneObjects[q.index]->normal(q.point);
+    Vector n = sceneObjects[q.index]->normal(q.point, pos);
     Vector l = light - q.point;
     l.normalise();
     float lDotn = l.dot(n);
@@ -126,7 +126,7 @@ Color trace(Vector pos, Vector dir, int step)
         float refractionIndex = 1.1;
         if (step % 2 == 0) {
             //refractionIndex = 1 / refractionIndex;
-            n *= -1;
+            //n *= -1;
         }
         
         /*if (step == 2) {
@@ -141,7 +141,7 @@ Color trace(Vector pos, Vector dir, int step)
         
         Color refractionCol = trace(q.point, refractionVector, step+1);
         //if (step % 2 == 1) {
-            colorSum.combineColor(refractionCol, 1);
+        colorSum.combineRefraction(refractionCol, 0.5);
         //}
         
     }

@@ -22,7 +22,7 @@ protected:
 public:
 	Object() {}
     virtual float intersect(Vector pos, Vector dir) = 0;
-	virtual Vector normal(Vector pos) = 0;
+	virtual Vector normal(Vector pos, Vector src) = 0;
 	virtual ~Object() {}
 	Color getColor();
 	void setColor(Color col);

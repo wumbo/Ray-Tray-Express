@@ -39,7 +39,7 @@ float Sphere::intersect(Vector pos, Vector dir)
 * Returns the unit normal vector at a given point.
 * Assumption: The input point p lies on the sphere.
 */
-Vector Sphere::normal(Vector p)
+Vector Sphere::normal(Vector p, Vector src)
 {
     Vector n = p - center;
     n.normalise();
