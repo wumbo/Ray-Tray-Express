@@ -8,6 +8,7 @@
 
 #include "Cylinder.h"
 #include <math.h>
+#include <iostream>
 
 /**
  * Cylinder's intersection method.  The input is a ray (pos, dir).
@@ -42,15 +43,28 @@ float Cylinder::intersect(Vector pos, Vector dir)
     }
     if(fabs(t2) < 0.001 ) t2 = -1.0;
     
-    Vector i;
-    if (t1 > 0) {
-        i = pos + dir * t1;
-    } else {
-        i = pos + dir * t2;
-    }
-    
-    if (i.y > center.y + height || i.y < center.y) {
-        return -1;
+    if (t1 > 0 && t2 < 0) {
+        Vector i = pos + dir * t1;
+        if (i.y > center.y + height || i.y < center.y) {
+            return -1;
+        }
+    } else if (t2 > 0 && t1 < 0) {
+        Vector i = pos + dir * t2;
+        if (i.y > center.y + height || i.y < center.y) {
+            return -1;
+        }
+    } else if (t1 > 0 && t2 > 0) {
+        Vector i1, i2;
+        i1 = pos + dir * (t1 < t2 ? t1 : t2);
+        i2 = pos + dir * (t1 > t2 ? t1 : t2);
+        if (dir.y < 0 && i1.y > center.y + height && i2.y < center.y + height) {
+            return t1 > t2 ? t1 : t2;
+        } else if (dir.y > 0 && i1.y < center.y && i2.y > center.y) {
+            return t1 > t2 ? t1 : t2;
+        } else if ((i1.y > center.y + height && i2.y > center.y + height) ||
+                   (i1.y < center.y && i2.y < center.y)) {
+            return -1;
+        }
     }
     
     return (t1 < t2)? t1: t2;
@@ -63,6 +77,7 @@ float Cylinder::intersect(Vector pos, Vector dir)
 Vector Cylinder::normal(Vector p)
 {
     Vector n = p - center;
+    n.y = 0;
     n.normalise();
     return n;
 }

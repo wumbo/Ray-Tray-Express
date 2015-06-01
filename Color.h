@@ -36,6 +36,8 @@ public:
     void combineColor(Color col);
 
     void combineColor(Color col, float scaleFactor);
+    
+    void combineRefraction(Color col, float refractionCoefficient);
 
 	Color phongLight(Color ambientCol, float diffuseTerm,  float specularTerm);
 };

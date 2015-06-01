@@ -91,13 +91,16 @@ Color trace(Vector pos, Vector dir, int step)
     float lightDist = lightVector.length();
     lightVector.normalise();
     PointBundle s = closestPt(q.point, lightVector);
+    
+    Color colorSum;
+    Vector r = ((n * 2) * lDotn) - l;
+    r.normalise();
+    Vector v(-dir.x, -dir.y, -dir.z);
 
     if (lDotn <= 0 || (s.index > -1 && s.dist < lightDist)) {
-        return col.phongLight(backgroundCol, 0.0, 0.0);
+        colorSum = col.phongLight(backgroundCol, 0.0, 0.0);
     } else {
-        Vector r = ((n * 2) * lDotn) - l;
-        r.normalise();
-        Vector v(-dir.x, -dir.y, -dir.z);
+
         float rDotv = r.dot(v);
         float spec;
         if (rDotv < 0) {
@@ -106,38 +109,44 @@ Color trace(Vector pos, Vector dir, int step)
             spec = pow(rDotv, 10);
         }
         
-        Color colorSum = col.phongLight(backgroundCol, lDotn, spec);
-        
-        // Reflections
-        if ((q.index == 2) && step < MAX_STEPS) {
-            Vector reflectionVector = ((n*2)* (n.dot(v))) - v;
-            float reflCoeff = 1;
-            
-            Color reflectionCol = trace(q.point, reflectionVector, step+1);
-            colorSum.combineColor(reflectionCol, reflCoeff);
-        }
-        
-        // Refractions
-        if ((q.index == 0) && step < MAX_STEPS) {
-            float refractionIndex = 1.5;
-            /*if (step % 2 == 0) {
-                refractionIndex = 1 / refractionIndex;
-            }*/
-            
-            if (step == 2) {
-                return Color::PINK;
-            }
-
-            float cosTheta = sqrt(1 - pow(refractionIndex, 2) * (1 - pow(dir.dot(n), 2)));
-            Vector refractionVector = (dir * refractionIndex) - n * (refractionIndex *
-                                                                     dir.dot(n) + cosTheta);
-            
-            Color refractionCol = trace(q.point, refractionVector, step+1);
-            colorSum.combineColor(refractionCol, 1);
-        }
-        
-        return colorSum;
+        colorSum = col.phongLight(backgroundCol, lDotn, spec);
     }
+    
+    // Reflections
+    if ((q.index == 2 || q.index == 5 || q.index == 3) && step < MAX_STEPS) {
+        Vector reflectionVector = ((n*2)* (n.dot(v))) - v;
+        float reflCoeff = 0.8;
+        
+        Color reflectionCol = trace(q.point, reflectionVector, step+1);
+        colorSum.combineColor(reflectionCol, reflCoeff);
+    }
+    
+    // Refractions
+    if ((q.index == 0 || q.index == 5) && step < MAX_STEPS) {
+        float refractionIndex = 1.1;
+        if (step % 2 == 0) {
+            //refractionIndex = 1 / refractionIndex;
+            n *= -1;
+        }
+        
+        /*if (step == 2) {
+         return Color::PINK;
+         }*/
+        
+        
+        
+        float cosTheta = sqrt(1 - pow(refractionIndex, 2) * (1 - pow(dir.dot(n), 2)));
+        Vector refractionVector = (dir * refractionIndex) - n * (refractionIndex *
+                                                                 dir.dot(n) + cosTheta);
+        
+        Color refractionCol = trace(q.point, refractionVector, step+1);
+        //if (step % 2 == 1) {
+            colorSum.combineColor(refractionCol, 1);
+        //}
+        
+    }
+    
+    return colorSum;
 }
 
 //---The main display module -----------------------------------------------------------
@@ -165,13 +174,33 @@ void display()
 		{
 			y1 = YMIN + j*pixelSize;
 			yc = y1 + halfPixelSize;
+            
+            Vector dir = Vector(xc, yc, -EDIST);	//direction of the primary ray
+            dir.normalise();			//Normalise this direction
+            Color col = trace (eye, dir, 1); //Trace the primary ray and get the colour value
 
-		    Vector dir(xc, yc, -EDIST);	//direction of the primary ray
-
-		    dir.normalise();			//Normalise this direction
-
-		    Color col = trace (eye, dir, 1); //Trace the primary ray and get the colour value
-			glColor3f(col.r, col.g, col.b);
+            /*dir = Vector(xc - halfPixelSize, yc - halfPixelSize, -EDIST);	//direction of the primary ray
+            dir.normalise();			//Normalise this direction
+            Color col1 = trace (eye, dir, 1); //Trace the primary ray and get the colour value
+            
+            dir = Vector(xc - halfPixelSize, yc + halfPixelSize, -EDIST);	//direction of the primary ray
+            dir.normalise();			//Normalise this direction
+            Color col2 = trace (eye, dir, 1); //Trace the primary ray and get the colour value
+            
+            dir = Vector(xc + halfPixelSize, yc - halfPixelSize, -EDIST);	//direction of the primary ray
+            dir.normalise();			//Normalise this direction
+            Color col3 = trace (eye, dir, 1); //Trace the primary ray and get the colour value
+            
+            dir = Vector(xc + halfPixelSize, yc + halfPixelSize, -EDIST);	//direction of the primary ray
+            dir.normalise();			//Normalise this direction
+            Color col4 = trace (eye, dir, 1); //Trace the primary ray and get the colour value
+            
+            float red = (col.r + col1.r + col2.r + col3.r + col4.r) / 5;
+            float green = (col.g + col1.g + col2.g + col3.g + col4.g) / 5;
+            float blue = (col.b + col1.b + col2.b + col3.b + col4.b) / 5;
+            
+			glColor3f(red, green, blue);*/
+            glColor3f(col.r, col.g, col.b);
 			glVertex2f(x1, y1);				//Draw each pixel with its color value
 			glVertex2f(x1 + pixelSize, y1);
 			glVertex2f(x1 + pixelSize, y1 + pixelSize);
@@ -187,7 +216,7 @@ void display()
 
 void initialize()
 {
-    backgroundCol = Color::GRAY;
+    backgroundCol = Color(0.1, 0.1, 0.1);
     glMatrixMode(GL_PROJECTION);
     gluOrtho2D(XMIN, XMAX, YMIN, YMAX);
     glMatrixMode(GL_MODELVIEW);
@@ -196,23 +225,30 @@ void initialize()
     
     Sphere *sphere1 = new Sphere(Vector(3, 0, -50), 3.0, Color::WHITE);
     Sphere *sphere2 = new Sphere(Vector(10, 8, -55), 3.0, Color::RED);
-    Sphere *sphere3 = new Sphere(Vector(-2, 1, -80), 10.0, Color::PINK);
+    Sphere *sphere3 = new Sphere(Vector(-2, 1, -80), 10.0, Color::GRAY);
     Sphere *sphere4 = new Sphere(Vector(-10, 8, -60), 4.0, Color::PINK);
     
-    Cylinder *cylinder1 = new Cylinder(Vector(0, -10, -45), 5.0, 3.0, Color::BLUE);
+    Cylinder *cylinder1 = new Cylinder(Vector(0, -10, -45), 5.0, 3.0, Color::GREEN);
     
-    Plane *plane = new Plane(Vector(-10, -10, -40),
+    Plane *floor = new Plane(Vector(-10, -10, -40),
                              Vector(10, -10, -40),
                              Vector(10., -10, -100),
                              Vector(-10., -10, -100),
-                             Color::YELLOW);
+                             Color::BLUE);
+    
+    Plane *back = new Plane(Vector(-20, -10, -100),
+                            Vector(20, -10, -100),
+                            Vector(20, 30, -100),
+                            Vector(-20, 30, -100),
+                            Color::GRAY);
     
     sceneObjects.push_back(sphere1);
     sceneObjects.push_back(sphere2);
     sceneObjects.push_back(sphere3);
     sceneObjects.push_back(sphere4);
     sceneObjects.push_back(cylinder1);
-    sceneObjects.push_back(plane);
+    sceneObjects.push_back(floor);
+    sceneObjects.push_back(back);
 }
 
 

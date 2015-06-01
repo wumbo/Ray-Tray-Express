@@ -50,6 +50,7 @@ Vector Plane::normal(Vector pos)
     Vector bMinusA = b - a;
     Vector cMinusA = c - a;
     Vector n = bMinusA.cross(cMinusA);
+    n.normalise();
     
     return n;
 }

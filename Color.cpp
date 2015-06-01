@@ -26,9 +26,20 @@ void Color::combineColor(Color col)
 //Adds a scaled version of a colour to the current colour
 void Color::combineColor(Color col, float scaleFactor)
 {
-    r =  (r + scaleFactor * col.r)/2;
+    /*r =  (r + scaleFactor * col.r)/2;
     g =  (g + scaleFactor * col.g)/2;
-    b =  (b + scaleFactor * col.b)/2;
+    b =  (b + scaleFactor * col.b)/2;*/
+    r += col.r * scaleFactor;
+    g += col.g * scaleFactor;
+    b += col.b * scaleFactor;
+}
+
+// Combines a color with a refracted color
+void Color::combineRefraction(Color col, float refractionCoefficient)
+{
+    r = refractionCoefficient * r + (1 - refractionCoefficient) * col.r;
+    g = refractionCoefficient * g + (1 - refractionCoefficient) * col.g;
+    b = refractionCoefficient * b + (1 - refractionCoefficient) * col.b;
 }
 
 //Phong lighting equations:
