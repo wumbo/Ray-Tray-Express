@@ -14,6 +14,9 @@
 #include "Plane.h"
 #include "Cylinder.h"
 #include <GL/glut.h>
+
+#define ANTI_ALIASING 1
+
 using namespace std;
 
 const float WIDTH = 26.0;
@@ -76,14 +79,18 @@ PointBundle closestPt(Vector pos, Vector dir)
 * procedure.
 */
 
-Color trace(Vector pos, Vector dir, int step)
+Color trace(Vector pos, Vector dir, int step, bool insideSphere = false)
 {
     PointBundle q = closestPt(pos, dir);
 
     if(q.index == -1) return backgroundCol;        //no intersection
 
     Color col = sceneObjects[q.index]->getColor(); //Object's colour
-    Vector n = sceneObjects[q.index]->normal(q.point, pos);
+    Vector n = sceneObjects[q.index]->normal(q.point, pos); // Normal vector
+    float transparency = sceneObjects[q.index]->transparency;
+    float refractionIndex = sceneObjects[q.index]->refractionIndex;
+    float reflectionCoefficient = sceneObjects[q.index]->reflectionCoefficient;
+    
     Vector l = light - q.point;
     l.normalise();
     float lDotn = l.dot(n);
@@ -114,21 +121,19 @@ Color trace(Vector pos, Vector dir, int step)
     }
     
     // Reflections
-    if ((q.index == 1) && step < MAX_STEPS) {
+    if ((reflectionCoefficient > 0) && step < MAX_STEPS) {
         Vector reflectionVector = ((n*2)* (n.dot(v))) - v;
-        float reflCoeff = 1;
         
         reflectionVector.normalise();
         Color reflectionCol = trace(q.point, reflectionVector, step+1);
-        colorSum.combineColor(reflectionCol, reflCoeff);
+        colorSum.combineColor(reflectionCol, reflectionCoefficient);
     }
     
     // Refractions
-    if ((q.index == 4 || q.index == 2) && step < MAX_STEPS) {
-        float refractionIndex = 1;
-        if (step % 2 == 0) {
+    if ((transparency > 0) && step < MAX_STEPS) {
+        if (insideSphere) {
             //refractionIndex = 1 / refractionIndex;
-            //n *= -1;
+            n *= -1;
         }
         
         /*if (step == 2) {
@@ -139,10 +144,14 @@ Color trace(Vector pos, Vector dir, int step)
         Vector refractionVector = (dir * refractionIndex) - n * (refractionIndex *
                                                                  dir.dot(n) + cosTheta);
         //refractionVector.normalise();
-        
-        Color refractionCol = trace(q.point, refractionVector, step+1);
+        Color refractionCol;
+        if (insideSphere || dynamic_cast<Sphere*>(sceneObjects[q.index]) == NULL) {
+            refractionCol = trace(q.point, refractionVector, step+1);
+        } else {
+            refractionCol = trace(q.point, refractionVector, step+1, true);
+        }
         //if (step % 2 == 1) {
-        colorSum.combineColor(refractionCol, 0.8);
+        colorSum.combineColor(refractionCol, transparency);
         //}
         
     }
@@ -176,32 +185,36 @@ void display()
 			y1 = YMIN + j*pixelSize;
 			yc = y1 + halfPixelSize;
             
-            Vector dir = Vector(xc, yc, -EDIST);	//direction of the primary ray
-            dir.normalise();			//Normalise this direction
-            Color col = trace (eye, dir, 1); //Trace the primary ray and get the colour value
-
-            /*dir = Vector(xc - halfPixelSize, yc - halfPixelSize, -EDIST);	//direction of the primary ray
-            dir.normalise();			//Normalise this direction
-            Color col1 = trace (eye, dir, 1); //Trace the primary ray and get the colour value
+            if (ANTI_ALIASING) {
+                Vector dir = Vector(xc - halfPixelSize/2, yc - halfPixelSize/2, -EDIST);	//direction of the primary ray
+                dir.normalise();			//Normalise this direction
+                Color col1 = trace (eye, dir, 1); //Trace the primary ray and get the colour value
+                
+                dir = Vector(xc - halfPixelSize/2, yc + halfPixelSize/2, -EDIST);	//direction of the primary ray
+                dir.normalise();			//Normalise this direction
+                Color col2 = trace (eye, dir, 1); //Trace the primary ray and get the colour value
+                
+                dir = Vector(xc + halfPixelSize/2, yc - halfPixelSize/2, -EDIST);	//direction of the primary ray
+                dir.normalise();			//Normalise this direction
+                Color col3 = trace (eye, dir, 1); //Trace the primary ray and get the colour value
+                
+                dir = Vector(xc + halfPixelSize/2, yc + halfPixelSize/2, -EDIST);	//direction of the primary ray
+                dir.normalise();			//Normalise this direction
+                Color col4 = trace (eye, dir, 1); //Trace the primary ray and get the colour value
+                
+                float red = (col1.r + col2.r + col3.r + col4.r) / 4;
+                float green = (col1.g + col2.g + col3.g + col4.g) / 4;
+                float blue = (col1.b + col2.b + col3.b + col4.b) / 4;
+                
+                glColor3f(red, green, blue);
+            } else {
+                Vector dir = Vector(xc, yc, -EDIST);	//direction of the primary ray
+                dir.normalise();			//Normalise this direction
+                Color col = trace (eye, dir, 1); //Trace the primary ray and get the colour value
+                
+                glColor3f(col.r, col.g, col.b);
+            }
             
-            dir = Vector(xc - halfPixelSize, yc + halfPixelSize, -EDIST);	//direction of the primary ray
-            dir.normalise();			//Normalise this direction
-            Color col2 = trace (eye, dir, 1); //Trace the primary ray and get the colour value
-            
-            dir = Vector(xc + halfPixelSize, yc - halfPixelSize, -EDIST);	//direction of the primary ray
-            dir.normalise();			//Normalise this direction
-            Color col3 = trace (eye, dir, 1); //Trace the primary ray and get the colour value
-            
-            dir = Vector(xc + halfPixelSize, yc + halfPixelSize, -EDIST);	//direction of the primary ray
-            dir.normalise();			//Normalise this direction
-            Color col4 = trace (eye, dir, 1); //Trace the primary ray and get the colour value
-            
-            float red = (col.r + col1.r + col2.r + col3.r + col4.r) / 5;
-            float green = (col.g + col1.g + col2.g + col3.g + col4.g) / 5;
-            float blue = (col.b + col1.b + col2.b + col3.b + col4.b) / 5;
-            
-			glColor3f(red, green, blue);*/
-            glColor3f(col.r, col.g, col.b);
 			glVertex2f(x1, y1);				//Draw each pixel with its color value
 			glVertex2f(x1 + pixelSize, y1);
 			glVertex2f(x1 + pixelSize, y1 + pixelSize);
@@ -224,13 +237,6 @@ void initialize()
     glLoadIdentity();
     glClearColor(backgroundCol.r, backgroundCol.g, backgroundCol.b, 1);
     
-//    Sphere *sphere1 = new Sphere(Vector(3, 0, -50), 3.0, Color::WHITE);
-//    Sphere *sphere2 = new Sphere(Vector(10, 8, -55), 3.0, Color::RED);
-//    Sphere *sphere3 = new Sphere(Vector(-2, 1, -80), 10.0, Color::GRAY);
-//    Sphere *sphere4 = new Sphere(Vector(-10, 8, -60), 4.0, Color::PINK);
-//    
-//    Cylinder *cylinder1 = new Cylinder(Vector(0, -10, -45), 5.0, 3.0, Color::GREEN);
-    
     Plane *floor = new Plane(Vector(-20, -10, -25),
                              Vector(20, -10, -25),
                              Vector(20., -10, -100),
@@ -242,21 +248,21 @@ void initialize()
                             Vector(20, 30, -100),
                             Vector(-20, 30, -100),
                             Color::BLACK);
+    back->reflectionCoefficient = 1;
     
-    Square *square1 = new Square(Vector(0, -6, -60), 8.0, Color::BLUE);
+    Square *square1 = new Square(Vector(0, -6, -60), 12.0, Color::BLUE);
+    square1->transparency = 0.9;
+    square1->refractionIndex = 1.5;
     Cylinder *cylinder1 = new Cylinder(Vector(0, -10, -90), 8.0, 3.0, Color::YELLOW);
-    Sphere *sphere1 = new Sphere(Vector(-5, -7, -40), 3.0, Color(0.5, 0.5, 0.5));
+    Sphere *sphere1 = new Sphere(Vector(-3, -7, -40), 3.0, Color(0.5, 0.5, 0.5));
+    sphere1->transparency = 0.8;
+    sphere1->refractionIndex = 1.1;
     
-//    sceneObjects.push_back(sphere1);
-//    sceneObjects.push_back(sphere2);
-//    sceneObjects.push_back(sphere3);
-//    sceneObjects.push_back(sphere4);
-//    sceneObjects.push_back(cylinder1);
     sceneObjects.push_back(floor);
     sceneObjects.push_back(back);
     sceneObjects.push_back(square1);
     sceneObjects.push_back(cylinder1);
-    //sceneObjects.push_back(sphere1);
+    sceneObjects.push_back(sphere1);
 }
 
 
@@ -266,7 +272,7 @@ int main(int argc, char *argv[])
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB );
     glutInitWindowSize(780, 600);
     glutInitWindowPosition(20, 20);
-    glutCreateWindow("Raytracing");
+    glutCreateWindow("Ray Tray Express");
 
     glutDisplayFunc(display);
     initialize();

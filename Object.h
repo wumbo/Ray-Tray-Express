@@ -20,7 +20,15 @@ class Object
 protected:
 	Color color;
 public:
-	Object() {}
+    float transparency;
+    float refractionIndex;
+    float reflectionCoefficient;
+	Object()
+    {
+        transparency = 0;
+        refractionIndex = 1;
+        reflectionCoefficient = 0;
+    }
     virtual float intersect(Vector pos, Vector dir) = 0;
 	virtual Vector normal(Vector pos, Vector src) = 0;
 	virtual ~Object() {}

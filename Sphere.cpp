@@ -20,7 +20,7 @@ float Sphere::intersect(Vector pos, Vector dir)
     float c = len*len - radius*radius;
     float delta = b*b - c;
    
-	if(fabs(delta) < 0.001) return -1.0; 
+	if(fabs(delta) < 0.001) return -1.0;
     if(delta < 0.0) return -1.0;
 
     float t1 = -b - sqrt(delta);
