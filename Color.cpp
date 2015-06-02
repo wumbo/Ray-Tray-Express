@@ -65,4 +65,4 @@ const Color Color::GREEN = Color(0, 1, 0);
 const Color Color::BLUE = Color(0, 0, 1);
 const Color Color::GRAY = Color(0.2f, 0.2f, 0.2f);
 const Color Color::PINK = Color(1, 0, 0.5);
-const Color Color::YELLOW = Color(0.5, 1, 0);
+const Color Color::YELLOW = Color(1, 1, 0);

@@ -23,6 +23,7 @@ public:
     Plane(Vector pa, Vector pb, Vector pc, Vector pd, Color col)
 		: a(pa), b(pb), c(pc), d(pd)
 	{
+        pattern = 0;
 		color = col;
 	};
 

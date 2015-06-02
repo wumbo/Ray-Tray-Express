@@ -31,7 +31,7 @@ const float YMAX =  HEIGHT * 0.5;
 
 vector<Object*> sceneObjects;
 
-Vector light = Vector(10.0, 40.0, -10.0);
+Vector light = Vector(15, 30, 15);
 Color backgroundCol;
 
 //A useful struct
@@ -114,7 +114,7 @@ Color trace(Vector pos, Vector dir, int step, bool insideSphere = false)
         if (rDotv < 0) {
             spec = 0.0;
         } else {
-            spec = pow(rDotv, 10);
+            spec = pow(rDotv, 100);
         }
         
         colorSum = col.phongLight(backgroundCol, lDotn, spec);
@@ -228,43 +228,69 @@ void display()
 
 void initialize()
 {
-    backgroundCol = Color(0.1, 0.1, 0.1);
+    backgroundCol = Color(0.2, 0.2, 0.2);
     glMatrixMode(GL_PROJECTION);
     gluOrtho2D(XMIN, XMAX, YMIN, YMAX);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glClearColor(backgroundCol.r, backgroundCol.g, backgroundCol.b, 1);
     
-    Plane *floor = new Plane(Vector(-20, -10, -25),
-                             Vector(20, -10, -25),
+    Plane *floor = new Plane(Vector(-20, -10, 1),
+                             Vector(20, -10, 1),
                              Vector(20., -10, -100),
                              Vector(-20., -10, -100),
                              Color(0.5, 0.5, 0.5));
     Pattern *p = new Pattern();
-    p->col1 = Color(0.2, 0.2, 0.6);
-    p->col2 = Color(0.2, 0.6, 0.2);
+    p->col1 = Color(0.0, 0.0, 0.0);
+    //p->col2 = Color(0.6, 0.1, 0.1);
+    p->col2 = Color::WHITE;
     p->size = 3;
     floor->pattern = p;
+    floor->reflectionCoefficient = 0.5;
+    
+    Plane *left = new Plane(Vector(-20, -10, 1),
+                            Vector(-20, -10, -100),
+                            Vector(-20, 20, -100),
+                            Vector(-20, 20, 1),
+                            Color(1, 0.95, 0.85));
+    
+    Plane *right = new Plane(Vector(20, -10, -100),
+                             Vector(20, -10, 1),
+                             Vector(20, 20, 1),
+                             Vector(20, 20, -100),
+                             Color(1, 0.95, 0.85));
     
     Plane *back = new Plane(Vector(-20, -10, -100),
                             Vector(20, -10, -100),
-                            Vector(20, 30, -100),
-                            Vector(-20, 30, -100),
+                            Vector(20, 20, -100),
+                            Vector(-20, 20, -100),
                             Color::BLACK);
     back->reflectionCoefficient = 1;
+    
+    Plane *roof = new Plane(Vector(20, 20, 1),
+                            Vector(-20, 20, 1),
+                            Vector(-20, 20, -100),
+                            Vector(20, 20, -100),
+                            Color(1, 0.95, 0.85));
     
     Square *square1 = new Square(Vector(0, -6, -60), 14.0, Color::BLUE);
     square1->transparency = 0.9;
     square1->refractionIndex = 1.5;
-    Cylinder *cylinder1 = new Cylinder(Vector(0, -10, -90), 8.0, 3.0, Color::YELLOW);
+    Cylinder *cylinder1 = new Cylinder(Vector(-12, -10, -55), 8.0, 1.0, Color::GREEN);
+    Cylinder *cylinder2 = new Cylinder(Vector(12, -10, -55), 8.0, 1.0, Color(1, 0.8, 0.25));
+    cylinder2->reflectionCoefficient = 0.1;
     Sphere *sphere1 = new Sphere(Vector(-3, -7, -40), 3.0, Color(0.5, 0.5, 0.5));
     sphere1->transparency = 0.8;
     sphere1->refractionIndex = 1.1;
     
     sceneObjects.push_back(floor);
+    sceneObjects.push_back(left);
+    sceneObjects.push_back(right);
     sceneObjects.push_back(back);
-    sceneObjects.push_back(square1);
+    //sceneObjects.push_back(roof);
+    //sceneObjects.push_back(square1);
     sceneObjects.push_back(cylinder1);
+    sceneObjects.push_back(cylinder2);
     sceneObjects.push_back(sphere1);
 }
 

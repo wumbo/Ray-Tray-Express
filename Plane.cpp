@@ -63,7 +63,7 @@ Vector Plane::normal(Vector pos, Vector src)
 
 Color Plane::getColor(Vector point)
 {
-    if (pattern == NULL) {
+    if (pattern == 0) {
         return color;
     } else {
         bool first;
