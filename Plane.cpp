@@ -63,14 +63,21 @@ Vector Plane::normal(Vector pos, Vector src)
 
 Color Plane::getColor(Vector point)
 {
-    if (pattern == nullptr) {
+    if (pattern == NULL) {
         return color;
     } else {
+        bool first;
         if (((int)(b.x - point.x) % pattern->size)  == 0) {
-            return pattern->col1;
+            first = true;
         } else {
-            return pattern->col2;
+            first = false;
         }
+        
+        if (((int)(b.z - point.z) % pattern->size)  == 0) {
+            first = !first;
+        }
+        
+        return first ? pattern->col1 : pattern->col2;
     }
 }
 
