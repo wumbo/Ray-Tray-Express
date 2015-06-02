@@ -114,7 +114,7 @@ Color trace(Vector pos, Vector dir, int step)
     }
     
     // Reflections
-    if ((q.index == 1 || q.index == 2) && step < MAX_STEPS) {
+    if ((q.index == 1) && step < MAX_STEPS) {
         Vector reflectionVector = ((n*2)* (n.dot(v))) - v;
         float reflCoeff = 1;
         
@@ -124,8 +124,8 @@ Color trace(Vector pos, Vector dir, int step)
     }
     
     // Refractions
-    if ((q.index == 4) && step < MAX_STEPS) {
-        float refractionIndex = 1.01;
+    if ((q.index == 4 || q.index == 2) && step < MAX_STEPS) {
+        float refractionIndex = 1;
         if (step % 2 == 0) {
             //refractionIndex = 1 / refractionIndex;
             //n *= -1;
@@ -243,7 +243,7 @@ void initialize()
                             Vector(-20, 30, -100),
                             Color::BLACK);
     
-    Square *square1 = new Square(Vector(-8, -6, -60), 8.0, Color::BLUE);
+    Square *square1 = new Square(Vector(0, -6, -60), 8.0, Color::BLUE);
     Cylinder *cylinder1 = new Cylinder(Vector(0, -10, -90), 8.0, 3.0, Color::YELLOW);
     Sphere *sphere1 = new Sphere(Vector(-5, -7, -40), 3.0, Color(0.5, 0.5, 0.5));
     
@@ -256,7 +256,7 @@ void initialize()
     sceneObjects.push_back(back);
     sceneObjects.push_back(square1);
     sceneObjects.push_back(cylinder1);
-    sceneObjects.push_back(sphere1);
+    //sceneObjects.push_back(sphere1);
 }
 
 
