@@ -15,7 +15,7 @@
 #include "Cylinder.h"
 #include <GL/glut.h>
 
-#define ANTI_ALIASING 1
+#define ANTI_ALIASING 0
 
 using namespace std;
 
@@ -85,7 +85,7 @@ Color trace(Vector pos, Vector dir, int step, bool insideSphere = false)
 
     if(q.index == -1) return backgroundCol;        //no intersection
 
-    Color col = sceneObjects[q.index]->getColor(); //Object's colour
+    Color col = sceneObjects[q.index]->getColor(q.point); //Object's colour
     Vector n = sceneObjects[q.index]->normal(q.point, pos); // Normal vector
     float transparency = sceneObjects[q.index]->transparency;
     float refractionIndex = sceneObjects[q.index]->refractionIndex;
@@ -143,16 +143,14 @@ Color trace(Vector pos, Vector dir, int step, bool insideSphere = false)
         float cosTheta = sqrt(1 - pow(refractionIndex, 2) * (1 - pow(dir.dot(n), 2)));
         Vector refractionVector = (dir * refractionIndex) - n * (refractionIndex *
                                                                  dir.dot(n) + cosTheta);
-        //refractionVector.normalise();
+        refractionVector.normalise();
         Color refractionCol;
         if (insideSphere || dynamic_cast<Sphere*>(sceneObjects[q.index]) == NULL) {
             refractionCol = trace(q.point, refractionVector, step+1);
         } else {
             refractionCol = trace(q.point, refractionVector, step+1, true);
         }
-        //if (step % 2 == 1) {
         colorSum.combineColor(refractionCol, transparency);
-        //}
         
     }
     
@@ -242,6 +240,11 @@ void initialize()
                              Vector(20., -10, -100),
                              Vector(-20., -10, -100),
                              Color(0.5, 0.5, 0.5));
+    Pattern *p = new Pattern();
+    p->col1 = Color(0.2, 0.2, 0.6);
+    p->col2 = Color(0.2, 0.6, 0.2);
+    p->size = 3;
+    floor->pattern = p;
     
     Plane *back = new Plane(Vector(-20, -10, -100),
                             Vector(20, -10, -100),
@@ -250,7 +253,7 @@ void initialize()
                             Color::BLACK);
     back->reflectionCoefficient = 1;
     
-    Square *square1 = new Square(Vector(0, -6, -60), 12.0, Color::BLUE);
+    Square *square1 = new Square(Vector(0, -6, -60), 14.0, Color::BLUE);
     square1->transparency = 0.9;
     square1->refractionIndex = 1.5;
     Cylinder *cylinder1 = new Cylinder(Vector(0, -10, -90), 8.0, 3.0, Color::YELLOW);

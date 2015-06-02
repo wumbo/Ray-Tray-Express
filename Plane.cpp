@@ -9,6 +9,7 @@
 #include "Plane.h"
 #include "Vector.h"
 #include <math.h>
+#include <iostream>
 
 Plane::Plane(void)
 {
@@ -58,6 +59,19 @@ Vector Plane::normal(Vector pos, Vector src)
     n.normalise();
     
     return n;
+}
+
+Color Plane::getColor(Vector point)
+{
+    if (pattern == nullptr) {
+        return color;
+    } else {
+        if (((int)(b.x - point.x) % pattern->size)  == 0) {
+            return pattern->col1;
+        } else {
+            return pattern->col2;
+        }
+    }
 }
 
 

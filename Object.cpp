@@ -9,7 +9,7 @@
 
 #include "Object.h"
 
-Color Object::getColor()
+Color Object::getColor(Vector point)
 {
 	return color;
 }

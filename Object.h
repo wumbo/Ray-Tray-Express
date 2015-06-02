@@ -15,11 +15,19 @@
 #include "Vector.h"
 #include "Color.h"
 
+struct Pattern
+{
+    Color col1;
+    Color col2;
+    int size; // Width of checkered squares
+};
+
 class Object 
 {
 protected:
 	Color color;
 public:
+    Pattern *pattern;
     float transparency;
     float refractionIndex;
     float reflectionCoefficient;
@@ -32,7 +40,7 @@ public:
     virtual float intersect(Vector pos, Vector dir) = 0;
 	virtual Vector normal(Vector pos, Vector src) = 0;
 	virtual ~Object() {}
-	Color getColor();
+    virtual Color getColor(Vector point);
 	void setColor(Color col);
 };
 

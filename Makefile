@@ -9,7 +9,7 @@ EXEC = RayTracer
 SOURCES = $(wildcard *.cpp)
 OBJECTS = $(SOURCES:.cpp=.o)
 
-all: RayTracer
+all: $(EXEC)
 
 $(EXEC): $(OBJECTS)
 	$(CC) $(LDFLAGS) $(OBJECTS) -o $(EXEC)

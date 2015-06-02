@@ -37,4 +37,5 @@ Vector Square::normal(Vector p, Vector src)
             return planes[i].normal(p, src);
         }
     }
+    return planes[0].normal(p, src);
 }
