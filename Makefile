@@ -7,8 +7,8 @@ LDFLAGS=-lGL -lGLU -lglut -L$(LDIR)
     
 all: RayTracer
 
-RayTracer: RayTracer.o Color.o Cylinder.o Object.o Plane.o Sphere.o Vector.o
-	$(CC) $(LDFLAGS) RayTracer.o Color.o Cylinder.o Object.o Plane.o Sphere.o Vector.o -o RayTracer
+RayTracer: RayTracer.o Color.o Cylinder.o Object.o Plane.o Sphere.o Square.o Vector.o
+	$(CC) $(LDFLAGS) RayTracer.o Color.o Cylinder.o Object.o Plane.o Sphere.o Square.o Vector.o -o RayTracer
 
 RayTracer.o: RayTracer.cpp
 	$(CC) $(CFLAGS) RayTracer.cpp
@@ -24,6 +24,9 @@ Object.o: Object.cpp Object.h
 
 Sphere.o: Sphere.cpp Sphere.h
 	$(CC) $(CFLAGS) Sphere.cpp
+
+Square.o: Square.cpp Square.h Plane.o
+	$(CC) $(CFLAGS) Square.cpp
 
 Vector.o: Vector.cpp Vector.h
 	$(CC) $(CFLAGS) Vector.cpp

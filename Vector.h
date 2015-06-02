@@ -39,6 +39,8 @@ public:
 	const bool operator!=(const Vector rhs);
 
 	const bool operator<(const Vector rhs);
+    
+    const bool approxEquals(const Vector rhs);
 
     void scale(float scale);
 

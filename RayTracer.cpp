@@ -8,6 +8,7 @@
 #include <vector>
 #include "Vector.h"
 #include "Sphere.h"
+#include "Square.h"
 #include "Color.h"
 #include "Object.h"
 #include "Plane.h"
@@ -27,7 +28,7 @@ const float YMAX =  HEIGHT * 0.5;
 
 vector<Object*> sceneObjects;
 
-Vector light = Vector(10.0, 40.0, -5.0);
+Vector light = Vector(10.0, 40.0, -10.0);
 Color backgroundCol;
 
 //A useful struct
@@ -113,17 +114,18 @@ Color trace(Vector pos, Vector dir, int step)
     }
     
     // Reflections
-    if ((q.index == 2 || q.index == 5 || q.index == 3) && step < MAX_STEPS) {
+    if ((q.index == 1 || q.index == 2) && step < MAX_STEPS) {
         Vector reflectionVector = ((n*2)* (n.dot(v))) - v;
-        float reflCoeff = 0.8;
+        float reflCoeff = 1;
         
+        reflectionVector.normalise();
         Color reflectionCol = trace(q.point, reflectionVector, step+1);
         colorSum.combineColor(reflectionCol, reflCoeff);
     }
     
     // Refractions
-    if ((q.index == 0 || q.index == 5) && step < MAX_STEPS) {
-        float refractionIndex = 1.1;
+    if ((q.index == 4) && step < MAX_STEPS) {
+        float refractionIndex = 1.01;
         if (step % 2 == 0) {
             //refractionIndex = 1 / refractionIndex;
             //n *= -1;
@@ -133,15 +135,14 @@ Color trace(Vector pos, Vector dir, int step)
          return Color::PINK;
          }*/
         
-        
-        
         float cosTheta = sqrt(1 - pow(refractionIndex, 2) * (1 - pow(dir.dot(n), 2)));
         Vector refractionVector = (dir * refractionIndex) - n * (refractionIndex *
                                                                  dir.dot(n) + cosTheta);
+        //refractionVector.normalise();
         
         Color refractionCol = trace(q.point, refractionVector, step+1);
         //if (step % 2 == 1) {
-        colorSum.combineRefraction(refractionCol, 0.5);
+        colorSum.combineColor(refractionCol, 0.8);
         //}
         
     }
@@ -223,32 +224,39 @@ void initialize()
     glLoadIdentity();
     glClearColor(backgroundCol.r, backgroundCol.g, backgroundCol.b, 1);
     
-    Sphere *sphere1 = new Sphere(Vector(3, 0, -50), 3.0, Color::WHITE);
-    Sphere *sphere2 = new Sphere(Vector(10, 8, -55), 3.0, Color::RED);
-    Sphere *sphere3 = new Sphere(Vector(-2, 1, -80), 10.0, Color::GRAY);
-    Sphere *sphere4 = new Sphere(Vector(-10, 8, -60), 4.0, Color::PINK);
+//    Sphere *sphere1 = new Sphere(Vector(3, 0, -50), 3.0, Color::WHITE);
+//    Sphere *sphere2 = new Sphere(Vector(10, 8, -55), 3.0, Color::RED);
+//    Sphere *sphere3 = new Sphere(Vector(-2, 1, -80), 10.0, Color::GRAY);
+//    Sphere *sphere4 = new Sphere(Vector(-10, 8, -60), 4.0, Color::PINK);
+//    
+//    Cylinder *cylinder1 = new Cylinder(Vector(0, -10, -45), 5.0, 3.0, Color::GREEN);
     
-    Cylinder *cylinder1 = new Cylinder(Vector(0, -10, -45), 5.0, 3.0, Color::GREEN);
-    
-    Plane *floor = new Plane(Vector(-10, -10, -40),
-                             Vector(10, -10, -40),
-                             Vector(10., -10, -100),
-                             Vector(-10., -10, -100),
-                             Color::BLUE);
+    Plane *floor = new Plane(Vector(-20, -10, -25),
+                             Vector(20, -10, -25),
+                             Vector(20., -10, -100),
+                             Vector(-20., -10, -100),
+                             Color(0.5, 0.5, 0.5));
     
     Plane *back = new Plane(Vector(-20, -10, -100),
                             Vector(20, -10, -100),
                             Vector(20, 30, -100),
                             Vector(-20, 30, -100),
-                            Color::GRAY);
+                            Color::BLACK);
     
-    sceneObjects.push_back(sphere1);
-    sceneObjects.push_back(sphere2);
-    sceneObjects.push_back(sphere3);
-    sceneObjects.push_back(sphere4);
-    sceneObjects.push_back(cylinder1);
+    Square *square1 = new Square(Vector(-8, -6, -60), 8.0, Color::BLUE);
+    Cylinder *cylinder1 = new Cylinder(Vector(0, -10, -90), 8.0, 3.0, Color::YELLOW);
+    Sphere *sphere1 = new Sphere(Vector(-5, -7, -40), 3.0, Color(0.5, 0.5, 0.5));
+    
+//    sceneObjects.push_back(sphere1);
+//    sceneObjects.push_back(sphere2);
+//    sceneObjects.push_back(sphere3);
+//    sceneObjects.push_back(sphere4);
+//    sceneObjects.push_back(cylinder1);
     sceneObjects.push_back(floor);
     sceneObjects.push_back(back);
+    sceneObjects.push_back(square1);
+    sceneObjects.push_back(cylinder1);
+    sceneObjects.push_back(sphere1);
 }
 
 

@@ -77,15 +77,13 @@ float Cylinder::intersect(Vector pos, Vector dir)
 Vector Cylinder::normal(Vector p, Vector src)
 {
     Vector d = p - src;
-    float t = intersect(src, d);
     d.normalise();
+    float t = intersect(src, d);
     Vector p2 = src + d * t;
     
-    Vector n;
-    if (p == p2) {
-        n = center - p;
-    } else {
-        n = p - center;
+    Vector n = p - center;
+    if (!p.approxEquals(p2)) {
+        n *= -1;
     }
     n.y = 0;
     n.normalise();

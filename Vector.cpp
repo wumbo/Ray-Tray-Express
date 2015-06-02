@@ -89,6 +89,13 @@ const bool Vector::operator<(const Vector rhs)
     return (l1 < l2);
 }
 
+const bool Vector::approxEquals(const Vector rhs)
+{
+    return x - rhs.x < 0.001 && x - rhs.x > -0.001 &&
+           y - rhs.y < 0.001 && y - rhs.y > -0.001 &&
+           z - rhs.z < 0.001 && z - rhs.z > -0.001;
+}
+
 // Scales the current vector by the given scale factor.
 void Vector::scale(float scale) 
 {
