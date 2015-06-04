@@ -15,14 +15,14 @@
 #include "Cylinder.h"
 #include <GL/glut.h>
 
-#define ANTI_ALIASING 0
+#define ANTI_ALIASING 1
 
 using namespace std;
 
 const float WIDTH = 26.0;
 const float HEIGHT = 20.0;
 const float EDIST = 40.0;
-const int PPU = 30;     //Total 600x600 pixels
+const int PPU = 30;
 const int MAX_STEPS = 10;
 const float XMIN = -WIDTH * 0.5;
 const float XMAX =  WIDTH * 0.5;
@@ -242,7 +242,6 @@ void initialize()
                              Color(0.5, 0.5, 0.5));
     Pattern *p = new Pattern();
     p->col1 = Color(0.0, 0.0, 0.0);
-    //p->col2 = Color(0.6, 0.1, 0.1);
     p->col2 = Color::WHITE;
     p->size = 3;
     floor->pattern = p;
@@ -273,25 +272,37 @@ void initialize()
                             Vector(20, 20, -100),
                             Color(1, 0.95, 0.85));
     
-    Square *square1 = new Square(Vector(0, -6, -60), 14.0, Color::BLUE);
+    Square *square1 = new Square(Vector(0, -6, -60), 8, Color::BLUE);
     square1->transparency = 0.9;
     square1->refractionIndex = 1.5;
-    Cylinder *cylinder1 = new Cylinder(Vector(-12, -10, -55), 8.0, 1.0, Color::GREEN);
+    Cylinder *cylinder1 = new Cylinder(Vector(-12, -10, -55), 8.0, 1.0, Color(1, 0.8, 0.25));
+    cylinder1->reflectionCoefficient = 0.07;
     Cylinder *cylinder2 = new Cylinder(Vector(12, -10, -55), 8.0, 1.0, Color(1, 0.8, 0.25));
-    cylinder2->reflectionCoefficient = 0.1;
-    Sphere *sphere1 = new Sphere(Vector(-3, -7, -40), 3.0, Color(0.5, 0.5, 0.5));
-    sphere1->transparency = 0.8;
-    sphere1->refractionIndex = 1.1;
+    cylinder2->reflectionCoefficient = 0.07;
+    Sphere *sphere1 = new Sphere(Vector(-12, -0.5, -55), 2.0, Color(1, 0.8, 0.25));
+    sphere1->reflectionCoefficient = 0.07;
+    Sphere *sphere2 = new Sphere(Vector(12, -0.5, -55), 2.0, Color(1, 0.8, 0.25));
+    Pattern *p1 = new Pattern();
+    p1->col1 = Color(1, 0.8, 0.25);
+    p1->col2 = Color::BLACK;
+    p1->size = 3;
+    sphere2->pattern = p1;
+    sphere2->reflectionCoefficient = 0.07;
+    
+    Sphere *sphere3 = new Sphere(Vector(-3, -7, -40), 3.0, Color(0.5, 0.5, 0.5));
+    sphere3->transparency = 0.8;
+    sphere3->refractionIndex = 1.1;
     
     sceneObjects.push_back(floor);
     sceneObjects.push_back(left);
     sceneObjects.push_back(right);
     sceneObjects.push_back(back);
-    //sceneObjects.push_back(roof);
-    //sceneObjects.push_back(square1);
+    sceneObjects.push_back(square1);
     sceneObjects.push_back(cylinder1);
     sceneObjects.push_back(cylinder2);
     sceneObjects.push_back(sphere1);
+    sceneObjects.push_back(sphere2);
+    sceneObjects.push_back(sphere3);
 }
 
 

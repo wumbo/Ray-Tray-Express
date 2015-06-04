@@ -26,18 +26,22 @@ public:
 	Sphere()
 		: center(Vector()), radius(1)  //Default constructor creates a unit sphere
 	{
+        pattern = 0;
 		color = Color::WHITE;
 	};
 	
     Sphere(Vector c, float r, Color col)
 		: center(c), radius(r)
 	{
+        pattern = 0;
 		color = col;
 	};
 
 	float intersect(Vector pos, Vector dir);
 
 	Vector normal(Vector p, Vector src);
+    
+    Color getColor(Vector point);
 
 };
 

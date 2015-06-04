@@ -45,3 +45,16 @@ Vector Sphere::normal(Vector p, Vector src)
     n.normalise();
     return n;
 }
+
+Color Sphere::getColor(Vector point)
+{
+    if (pattern == 0) {
+        return color;
+    } else {
+        if ((int)(point.x * pattern->size) % 2 == 0) {
+            return pattern->col1;
+        } else {
+            return pattern->col2;
+        }
+    }
+}
