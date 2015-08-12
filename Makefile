@@ -5,6 +5,8 @@ LDIR=/opt/X11/lib/
 CFLAGS=-c -Wall -I$(IDIR)
 LDFLAGS=-lGL -lGLU -lglut -L$(LDIR)
 
+AA=1
+
 EXEC = RayTracer
 SOURCES = $(wildcard *.cpp)
 OBJECTS = $(SOURCES:.cpp=.o)
@@ -12,10 +14,10 @@ OBJECTS = $(SOURCES:.cpp=.o)
 all: $(EXEC)
 
 $(EXEC): $(OBJECTS)
-	$(CC) $(LDFLAGS) $(OBJECTS) -o $(EXEC)
+	$(CC) $(OBJECTS) -o $(EXEC) $(LDFLAGS)
 
 %.o: %.cpp
-	$(CC) -c $(CFLAGS) $< -o $@
+	$(CC) -c -DANTI_ALIASING=$(AA) $(CFLAGS) $< -o $@
 
 clean:
 	rm *.o $(EXEC)

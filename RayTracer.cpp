@@ -15,8 +15,6 @@
 #include "Cylinder.h"
 #include <GL/glut.h>
 
-#define ANTI_ALIASING 1
-
 using namespace std;
 
 const float WIDTH = 26.0;
