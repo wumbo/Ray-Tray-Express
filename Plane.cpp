@@ -11,10 +11,7 @@
 #include <math.h>
 #include <iostream>
 
-Plane::Plane(void)
-{
-    
-}
+
 
 //Function to test if an input point is within the quad.
 bool Plane::isInside(Vector q)

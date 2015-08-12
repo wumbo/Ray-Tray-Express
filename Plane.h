@@ -18,7 +18,7 @@ private:
     Vector a, b, c, d;      //The 4 vertices of a quad
 
 public:	
-	Plane(void);
+    Plane(void) { pattern = 0; }
 	
     Plane(Vector pa, Vector pb, Vector pc, Vector pd, Color col)
 		: a(pa), b(pb), c(pc), d(pd)

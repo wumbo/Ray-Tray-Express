@@ -31,7 +31,7 @@ const float YMAX =  HEIGHT * 0.5;
 
 vector<Object*> sceneObjects;
 
-Vector light = Vector(15, 30, 15);
+Vector light = Vector(15, 40, 15);
 Color backgroundCol;
 
 //A useful struct
@@ -266,43 +266,43 @@ void initialize()
                             Color::BLACK);
     back->reflectionCoefficient = 1;
     
-    Plane *roof = new Plane(Vector(20, 20, 1),
-                            Vector(-20, 20, 1),
-                            Vector(-20, 20, -100),
-                            Vector(20, 20, -100),
-                            Color(1, 0.95, 0.85));
-    
-    Square *square1 = new Square(Vector(0, -6, -60), 8, Color::BLUE);
-    square1->transparency = 0.9;
-    square1->refractionIndex = 1.5;
-    Cylinder *cylinder1 = new Cylinder(Vector(-12, -10, -55), 8.0, 1.0, Color(1, 0.8, 0.25));
+    Square *square1 = new Square(Vector(-6, -8, -45), 4, Color::GREEN);
+    Square *square2 = new Square(Vector(-6, -4, -45), 4, Color::BLUE);
+    square1->transparency = 0.8;
+    square2->transparency = 0.8;
+    Cylinder *cylinder1 = new Cylinder(Vector(-12, -10, -55), 8.0, 1.0, Color(0.8, 0.6, 0.15));
     cylinder1->reflectionCoefficient = 0.07;
-    Cylinder *cylinder2 = new Cylinder(Vector(12, -10, -55), 8.0, 1.0, Color(1, 0.8, 0.25));
+    Cylinder *cylinder2 = new Cylinder(Vector(12, -10, -55), 8.0, 1.0, Color(0.8, 0.6, 0.15));
     cylinder2->reflectionCoefficient = 0.07;
-    Sphere *sphere1 = new Sphere(Vector(-12, -0.5, -55), 2.0, Color(1, 0.8, 0.25));
-    sphere1->reflectionCoefficient = 0.07;
-    Sphere *sphere2 = new Sphere(Vector(12, -0.5, -55), 2.0, Color(1, 0.8, 0.25));
+    Sphere *sphere1 = new Sphere(Vector(-12, -0.5, -55), 2.0, Color::BLACK);
     Pattern *p1 = new Pattern();
-    p1->col1 = Color(1, 0.8, 0.25);
-    p1->col2 = Color::BLACK;
+    p1->col1 = Color(0.8, 0.6, 0.15);
+    p1->col2 = Color::GRAY;
     p1->size = 3;
+    sphere1->pattern = p1;
+    sphere1->reflectionCoefficient = 0.1;
+    Sphere *sphere2 = new Sphere(Vector(12, -0.5, -55), 2.0, Color::BLACK);
     sphere2->pattern = p1;
-    sphere2->reflectionCoefficient = 0.07;
+    sphere2->reflectionCoefficient = 0.1;
     
-    Sphere *sphere3 = new Sphere(Vector(-3, -7, -40), 3.0, Color(0.5, 0.5, 0.5));
-    sphere3->transparency = 0.8;
-    sphere3->refractionIndex = 1.1;
+    Sphere *sphere3 = new Sphere(Vector(0, -6, -60), 4, Color::BLACK);
+    sphere3->reflectionCoefficient = 1;
+    Sphere *sphere4 = new Sphere(Vector(8, -7, -45), 3, Color(0.5, 0, 0));
+    sphere4->refractionIndex = 1.03;
+    sphere4->transparency = 1;
     
     sceneObjects.push_back(floor);
     sceneObjects.push_back(left);
     sceneObjects.push_back(right);
     sceneObjects.push_back(back);
     sceneObjects.push_back(square1);
+    sceneObjects.push_back(square2);
     sceneObjects.push_back(cylinder1);
     sceneObjects.push_back(cylinder2);
     sceneObjects.push_back(sphere1);
     sceneObjects.push_back(sphere2);
     sceneObjects.push_back(sphere3);
+    sceneObjects.push_back(sphere4);
 }
 
 
